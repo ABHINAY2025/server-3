@@ -61,6 +61,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <SidebarMenuItem key={section.title}>
                 <SidebarMenuButton asChild isActive={sectionActive}>
                   <Link href={section.href}>
+                    {section.icon ? <section.icon className="size-4" /> : null}
                     <span>{section.title}</span>
                   </Link>
                 </SidebarMenuButton>
@@ -69,7 +70,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     {section.items.map((item) => (
                       <SidebarMenuSubItem key={item.title}>
                         <SidebarMenuSubButton asChild isActive={pathname === item.href}>
-                          <Link href={item.href}>{item.title}</Link>
+                          <Link href={item.href}>
+                            {item.icon ? <item.icon className="size-4" /> : null}
+                            <span>{item.title}</span>
+                          </Link>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>
                     ))}

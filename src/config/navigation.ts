@@ -1,6 +1,26 @@
+import type { LucideIcon } from "lucide-react"
+
+import {
+  ArrowLeftRight,
+  Brush,
+  Database,
+  Layers,
+  LineChart,
+  Network,
+  PiggyBank,
+  ScanSearch,
+  Settings2,
+  ShieldAlert,
+  ShieldCheck,
+  SlidersHorizontal,
+  Sparkles,
+  Wrench,
+} from "lucide-react"
+
 export type NavItem = {
   title: string
   href: string
+  icon?: LucideIcon
 }
 
 export type NavSection = NavItem & {
@@ -11,35 +31,39 @@ export const NAV_SECTIONS: NavSection[] = [
   {
     title: "Data Control",
     href: "/",
+    icon: Database,
     items: [
-      { title: "Repair Workflow", href: "/repair-flow" },
-      { title: "Auto-Corrected Flow", href: "/autocorrected-flow" },
-      { title: "Network Resolution", href: "/network-resolution" },
+      { title: "Repair Workflow", href: "/repair-flow", icon: Wrench },
+      { title: "Auto-Corrected Flow", href: "/autocorrected-flow", icon: Sparkles },
+      { title: "Network Resolution", href: "/network-resolution", icon: Network },
     ],
   },
   {
     title: "Liquidity Control",
     href: "/liquidity-dashboard",
+    icon: PiggyBank,
     items: [
-      { title: "Cash Flow", href: "/cash-flow" },
-      { title: "Cash Pooling", href: "/cash-pooling" },
-      { title: "Cash Sweeping", href: "/cash-sweeping" },
-      { title: "Cash Reserves", href: "/cash-reserves" },
-      { title: "Investments", href: "/investments" },
+      { title: "Cash Flow", href: "/cash-flow", icon: ArrowLeftRight },
+      { title: "Cash Pooling", href: "/cash-pooling", icon: Layers },
+      { title: "Cash Sweeping", href: "/cash-sweeping", icon: Brush },
+      { title: "Cash Reserves", href: "/cash-reserves", icon: ShieldCheck },
+      { title: "Investments", href: "/investments", icon: LineChart },
     ],
   },
   {
     title: "Fraud Control",
     href: "/fraud-control",
+    icon: ShieldAlert,
     items: [
-      { title: "Anomaly Detection", href: "/fraud-control/anomaly-detection" },
+      { title: "Anomaly Detection", href: "/fraud-control/anomaly-detection", icon: ScanSearch },
     ],
   },
   {
     title: "Rules Management",
     href: "/configuration",
+    icon: Settings2,
     items: [
-      { title: "Configuration", href: "/rules-management/configure" },
+      { title: "Configuration", href: "/rules-management/configure", icon: SlidersHorizontal },
     ],
   },
 ]
