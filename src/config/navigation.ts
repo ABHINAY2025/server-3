@@ -5,6 +5,7 @@ import {
   Brush,
   Database,
   Layers,
+  LayoutDashboard,
   LineChart,
   Network,
   PiggyBank,
@@ -33,6 +34,7 @@ export const NAV_SECTIONS: NavSection[] = [
     href: "/",
     icon: Database,
     items: [
+      { title: "Dashboard", href: "/", icon: LayoutDashboard },
       { title: "Repair Workflow", href: "/repair-flow", icon: Wrench },
       { title: "Auto-Corrected Flow", href: "/autocorrected-flow", icon: Sparkles },
       { title: "Network Resolution", href: "/network-resolution", icon: Network },
@@ -43,6 +45,7 @@ export const NAV_SECTIONS: NavSection[] = [
     href: "/liquidity-dashboard",
     icon: PiggyBank,
     items: [
+      { title: "Dashboard", href: "/liquidity-dashboard", icon: LayoutDashboard },
       { title: "Cash Flow", href: "/cash-flow", icon: ArrowLeftRight },
       { title: "Cash Pooling", href: "/cash-pooling", icon: Layers },
       { title: "Cash Sweeping", href: "/cash-sweeping", icon: Brush },
@@ -55,6 +58,7 @@ export const NAV_SECTIONS: NavSection[] = [
     href: "/fraud-control",
     icon: ShieldAlert,
     items: [
+      { title: "Dashboard", href: "/fraud-control", icon: LayoutDashboard },
       { title: "Anomaly Detection", href: "/fraud-control/anomaly-detection", icon: ScanSearch },
     ],
   },
