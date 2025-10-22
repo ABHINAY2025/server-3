@@ -1,16 +1,14 @@
 import type { Metadata } from "next"
 
-import { PagePlaceholder } from "@/components/page-placeholder"
+import { DataControlDashboard } from "@/components/data-control/dashboard"
+import { getDashboardView } from "@/lib/api/dashboard"
 
 export const metadata: Metadata = {
   title: "Data Control",
 }
 
-export default function DataControlPage() {
-  return (
-    <PagePlaceholder
-      title="Data Control"
-      description="Monitor and manage enterprise data controls from a single workspace. Detailed workflows and insights will be available here."
-    />
-  )
+export default async function DataControlPage() {
+  const data = await getDashboardView()
+
+  return <DataControlDashboard data={data} />
 }

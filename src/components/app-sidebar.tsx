@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import Image from "next/image"
 
 import { NavUser } from "@/components/nav-user"
 import {
@@ -19,8 +20,8 @@ import {
 import { NAV_SECTIONS, type NavSection } from "@/config/navigation"
 
 const USER = {
-  name: "shadcn",
-  email: "m@example.com",
+  name: "subbu",
+  email: "subbu@fisecglobal.net",
   avatar: "/avatars/shadcn.jpg",
 }
 
@@ -37,16 +38,22 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar collapsible="offcanvas" {...props}>
-      <SidebarHeader>
+      <SidebarHeader className="py-8">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              className="data-[slot=sidebar-menu-button]:!p-1.5"
-              isActive={pathname === "/"}
+              className="data-[slot=sidebar-menu-button]:!bg-transparent hover:!bg-transparent"
+              isActive={false}
             >
               <Link href="/">
-                <span className="text-base font-semibold">FiSec Control</span>
+                <Image
+                  src="/qdl-logo1.png"
+                  alt="Quantum Data Leap"
+                  width={160}
+                  height={45}
+                  priority
+                />
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
