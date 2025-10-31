@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
-
-import { PagePlaceholder } from "@/components/page-placeholder"
+import AnomalyDetectionTable from "@/components/anomaly-detection-table"
 
 export const metadata: Metadata = {
   title: "Anomaly Detection",
@@ -8,9 +7,18 @@ export const metadata: Metadata = {
 
 export default function AnomalyDetectionPage() {
   return (
-    <PagePlaceholder
-      title="Anomaly Detection"
-      description="Investigate suspicious transactions and model outputs. Alerts and review queues will be added soon."
-    />
+    <div className="flex flex-col gap-6 p-8">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">Suspicious Transactions</h1>
+          <p className="text-muted-foreground">
+            Analyze if the transaction is Suspicious or not
+          </p>
+        </div>
+      </div>
+      <div className="flex-1">
+        <AnomalyDetectionTable />
+      </div>
+    </div>
   )
 }

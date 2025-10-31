@@ -1,16 +1,8 @@
-import type { Metadata } from "next"
+"use client"
 
-import { PagePlaceholder } from "@/components/page-placeholder"
-
-export const metadata: Metadata = {
-  title: "Repair Workflow",
-}
+import dynamic from "next/dynamic"
+const WorkFlowTable = dynamic(() => import("@/components/WorkFlowTable"), { ssr: false })
 
 export default function RepairWorkflowPage() {
-  return (
-    <PagePlaceholder
-      title="Repair Workflow"
-      description="Track and resolve data quality issues across systems. Detailed workflow steps will appear here."
-    />
-  )
+  return <WorkFlowTable status="To Be Repaired" />
 }

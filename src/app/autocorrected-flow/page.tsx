@@ -1,16 +1,14 @@
-import type { Metadata } from "next"
+"use client"
 
-import { PagePlaceholder } from "@/components/page-placeholder"
+import dynamic from "next/dynamic"
+const WorkFlowTable = dynamic(() => import("@/components/WorkFlowTable"), { ssr: false })
 
-export const metadata: Metadata = {
-  title: "Auto-Corrected Flow",
-}
+import { WorkFlowWrapper } from "@/components/workflow/WorkFlowWrapper"
 
 export default function AutocorrectedFlowPage() {
   return (
-    <PagePlaceholder
-      title="Auto-Corrected Flow"
-      description="Review automated corrections and approve adjustments before they move downstream."
-    />
+    <WorkFlowWrapper>
+      <WorkFlowTable status="Auto Corrected" />
+    </WorkFlowWrapper>
   )
 }

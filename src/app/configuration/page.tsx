@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 
-import { PagePlaceholder } from "@/components/page-placeholder"
+import RuleManagementPage from "@/components/rule-management-page"
 
 export const metadata: Metadata = {
   title: "Rules Management",
@@ -8,9 +8,8 @@ export const metadata: Metadata = {
 
 export default function ConfigurationPage() {
   return (
-    <PagePlaceholder
-      title="Rules Management"
-      description="Manage configuration baselines and rule sets. Editing tools and publishing flows will be introduced here."
-    />
+    <RuleManagementPage />
   )
 }
+
+ 

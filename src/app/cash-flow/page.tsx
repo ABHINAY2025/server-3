@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
-
-import { PagePlaceholder } from "@/components/page-placeholder"
+import CashFlowTable from "@/components/cash-flow-table"
 
 export const metadata: Metadata = {
   title: "Cash Flow",
@@ -8,9 +7,13 @@ export const metadata: Metadata = {
 
 export default function CashFlowPage() {
   return (
-    <PagePlaceholder
-      title="Cash Flow"
-      description="Analyze inflows and outflows across entities. Interactive charts and forecasts will appear shortly."
-    />
+    <div className="flex flex-col gap-6 p-8">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold tracking-tight">Cash Flow</h1>
+      </div>
+      <div className="flex-1 overflow-hidden">
+        <CashFlowTable />
+      </div>
+    </div>
   )
 }

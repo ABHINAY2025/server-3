@@ -1,0 +1,9 @@
+.custom-ant-table {
+  width: 100%;
+}
+.no-hover-row {
+  background-color: transparent;
+}
+.custom-table-button {
+  margin-left: 4px;
+}

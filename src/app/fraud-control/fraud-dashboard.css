@@ -1,0 +1,180 @@
+.dashboard-container {
+  padding: 20px;
+  width: 100%;
+  height: auto;
+  min-height: 95vh;
+  max-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+ 
+.stats-row {
+  margin-bottom: 24px;
+}
+ 
+.stat-card {
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+ 
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+ 
+.card-icon {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+ 
+.stat-value-large {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 8px 0;
+}
+ 
+.stat-label {
+  color: #110;
+  font-size: 18px;
+}
+ 
+.fraud-card .card-icon {
+  color: #f5222d;
+}
+ 
+.suspicious-card .card-icon {
+  color: #faad14;
+}
+ 
+.aml-card .card-icon {
+  color: #722ed1;
+}
+ 
+.pep-card .card-icon {
+  color: #13c2c2;
+}
+ 
+.sanctions-card .card-icon {
+  color: #eb2f96;
+}
+ 
+.table-section {
+  margin-top: 24px;
+}
+ 
+.table-card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+ 
+.risk-level {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+ 
+.risk-level.high {
+  background-color: rgba(245, 34, 45, 0.1);
+  color: #f5222d;
+}
+ 
+.risk-level.medium {
+  background-color: rgba(250, 173, 20, 0.1);
+  color: #faad14;
+}
+ 
+.risk-level.low {
+  background-color: rgba(82, 196, 26, 0.1);
+  color: #52c41a;
+}
+ 
+.risk-score-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+ 
+.truncate-text {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+ 
+.rule-notification {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background-color: rgba(46, 125, 50, 0.9);
+  color: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  max-width: 320px;
+  animation: fadeIn 0.5s ease-out;
+}
+ 
+.notification-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+ 
+.notification-icon {
+  margin-right: 8px;
+  font-size: 20px;
+}
+ 
+.notification-title {
+  font-weight: bold;
+  font-size: 16px;
+}
+ 
+.rule-id {
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+ 
+.rule-details {
+  font-size: 0.85em;
+}
+ 
+.rule-meta {
+  font-size: 0.8em;
+  margin-top: 10px;
+  opacity: 0.8;
+}
+ 
+.dark-theme {
+  background-color: #141414;
+}
+ 
+.dark-theme .stat-card {
+  background-color: #1f1f1f;
+  border-color: #303030;
+}
+ 
+.dark-theme .stat-label {
+  color: #999;
+}
+ 
+.dark-theme .table-card {
+  background-color: #1f1f1f;
+}
+ 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+ 
