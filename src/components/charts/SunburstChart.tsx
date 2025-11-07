@@ -106,7 +106,7 @@ const SunburstChart: React.FC<SunburstChartProps> = ({
 
     const width = 300;
     const height = 320;
-    const radius = Math.min(width, height) / 2;
+    const radius = Math.min(width, height) / 2.5; // More padding for labels
 
     // Type-safe hierarchy
 interface RootNode {
@@ -169,7 +169,8 @@ d3.partition<SunburstNode | RootNode>().size([2 * Math.PI, radius])(root);
       .append("g")
       .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
-    svg
+    // Add the segments
+    const path = svg
       .selectAll("path")
       .data(root.descendants().slice(1))
       .enter()
@@ -187,6 +188,55 @@ d3.partition<SunburstNode | RootNode>().size([2 * Math.PI, radius])(root);
       })
       .on("mouseout", function () {
         tooltip.style("visibility", "hidden");
+      });
+
+    // Add the labels
+    const text = svg
+      .selectAll("text")
+      .data(root.descendants().slice(1))
+      .enter()
+      .append("text")
+      .attr("transform", function(d) {
+        const node = d as d3.HierarchyRectangularNode<SunburstNode>;
+        // Calculate the angle at the center of the segment
+        const angle = (node.x0 + node.x1) / 2;
+        // Calculate radius for the text position (middle of the segment)
+        const textRadius = (node.y0 + node.y1) / 2;
+        // Calculate x and y positions
+        const x = textRadius * Math.sin(angle);
+        const y = -textRadius * Math.cos(angle);
+        // Determine if we're in the left or right half of the circle
+        const rotation = (angle * 180 / Math.PI) + (angle > Math.PI ? 180 : 0);
+        
+        return `translate(${x},${y}) rotate(${rotation})`;
+      })
+      .attr("dx", 0)
+      .attr("dy", "0.35em")
+      .style("font-size", (d) => {
+        const node = d as d3.HierarchyRectangularNode<SunburstNode>;
+        const arcLength = (node.x1 - node.x0) * (node.y0 + node.y1) / 2;
+        // Dynamically adjust font size based on segment size
+        return Math.min(arcLength * 0.2, 12) + "px";
+      })
+      .style("fill", "#000000")
+      .style("font-weight", "600")
+      .style("text-anchor", "middle")
+      .style("pointer-events", "none")
+      .text(function(d) {
+        const node = d as d3.HierarchyRectangularNode<SunburstNode>;
+        const arcLength = (node.x1 - node.x0) * (node.y0 + node.y1) / 2;
+        // Show at least 2 characters for very small segments
+        if (arcLength < 15) {
+          return node.data.name.substring(0, 2) + '...';
+        }
+        
+        // Truncate text if too long for the segment
+        const name = node.data.name;
+        if (name.length * (parseInt(this.style.fontSize) * 0.6) > arcLength) {
+          const chars = Math.max(2, Math.floor(arcLength / (parseInt(this.style.fontSize) * 0.6)));
+          return name.substring(0, chars) + '...';
+        }
+        return name;
       });
   }, [data, thresholdAlert]);
 

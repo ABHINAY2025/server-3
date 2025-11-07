@@ -33,9 +33,12 @@ import { formatAmount } from "../../../utils/formatAmount";
 
 // ---------------------- Type Definitions ----------------------
 interface CounterpartyData {
-  status?: string;
-  inflowAmount?: number;
-  outflowAmount?: number;
+  counterpartyName: string;
+  status: string;
+  inflowAmount: number;
+  outflowAmount: number;
+  netPosition: number;
+  lastTransactionTime: string;
   [key: string]: any;
 }
 
@@ -161,13 +164,14 @@ const CounterPartyPositions: React.FC<CounterPartyPositionsProps> = ({
         };
 
   // ---------------------- Table Data ----------------------
-  const tableData = companies.map((company) => {
-    const data = counterpartyData[company] || {};
+  const tableData = Object.entries(counterpartyData).map(([key, data]) => {
     return {
-      name: company,
+      name: data.counterpartyName || key,
       inflow: data.inflowAmount || 0,
       outflow: data.outflowAmount || 0,
-      ...data,
+      netPosition: data.netPosition || 0,
+      status: data.status || 'Inactive',
+      lastTransactionTime: data.lastTransactionTime
     };
   });
 
@@ -358,13 +362,19 @@ const CounterPartyPositions: React.FC<CounterPartyPositionsProps> = ({
               <Paper
                 elevation={0}
                 sx={{
-                  background: "rgba(255,255,255,0.05)",
+                  background: "rgba(255,255,255,0.95)",
                   borderRadius: 1,
                   border: "1px solid rgba(255,255,255,0.1)",
                   flex: 1,
                   display: "flex",
                   flexDirection: "column",
                   overflow: "hidden",
+                  "& .MuiTableCell-root": {
+                    color: "#000000"
+                  },
+                  "& .MuiTableBody-root .MuiTableCell-root": {
+                    color: "#000000"
+                  }
                 }}
               >
                 {/* Table Container with Scroll */}

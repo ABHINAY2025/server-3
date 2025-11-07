@@ -1,7 +1,7 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
 
 // === Configuration ===
-const API_BASE = "http://10.30.0.21:8088/api" as const;
+const API_BASE = "http://10.20.0.4:8089/api" as const;
 
 // === Axios Interceptors ===
 axios.interceptors.request.use(

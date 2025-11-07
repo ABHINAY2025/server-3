@@ -1,16 +1,13 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
-import { Table, Modal, Button, Drawer, Form, Input, Select } from "antd";
-import { SettingOutlined, FilterOutlined } from "@ant-design/icons";
-import {
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-} from "@dnd-kit/core";
-import { arrayMove } from "@dnd-kit/sortable";
+import { useEffect, useState, useMemo } from "react";
+import { Table, Button, Modal, Form, Input, Select, Drawer } from "antd";
 import type { ColumnsType } from "antd/es/table";
+import { FilterOutlined, SettingOutlined } from "@ant-design/icons";
+import { useSensors, useSensor, PointerSensor, KeyboardSensor } from "@dnd-kit/core";
+import { arrayMove } from "@dnd-kit/sortable";
+import { fetchCashFlowData } from "@/lib/api/liquidity";
+
 import "./Customtable.css";
 
 interface CashFlowRecord {
@@ -85,102 +82,31 @@ const allColumns: ColumnsType<CashFlowRecord> = [
 ];
 
 const CashFlowTable: React.FC = () => {
-  const [data] = useState<CashFlowRecord[]>([
-    {
-      id: 1,
-      msgId: "MSGIDDK00001",
-      debtorName: "NovaMatrix Technologies",
-      creditorName: "QuantumTech Systems",
-      clearingNetwork: "ACH",
-      cashFlow: "Outflow",
-      status: "Processing",
-      creationDateTime: "2024-14-02T08:00:00",
-    },
-    {
-      id: 2,
-      msgId: "MSGIDDK00002",
-      creditorName: "QuantumTech Systems",
-      debtorName: "NovaMatrix Technologies",
-      creditorNetworkType: "ACH",
-      debtorNetworkType: "ACH",
-      clearingNetwork: "ACH",
-      tier: "Tier1",
-      status: "Completed",
-      amount: 925887.34,
-      cashFlow: "Inflow",
-      creationDateTime: "2024-12-02T08:00:00",
-    },
-    {
-      id: 3,
-      msgId: "MSGIDDK00003",
-      creditorName: "QuantumTech Systems",
-      debtorName: "NovaMatrix Technologies",
-      creditorNetworkType: "ACH",
-      debtorNetworkType: "ACH",
-      clearingNetwork: "ACH",
-      tier: "Tier1",
-      status: "Processing",
-      amount: 925887.34,
-      cashFlow: "Inflow",
-      creationDateTime: "2024-12-02T08:00:00",
-    },
-    {
-      id: 4,
-      msgId: "MSGIDDK00004",
-      creditorName: "QuantumTech Systems",
-      debtorName: "NovaMatrix Technologies",
-      creditorNetworkType: "ACH",
-      debtorNetworkType: "ACH",
-      clearingNetwork: "ACH",
-      tier: "Tier3",
-      status: "Processing",
-      amount: 1.2692588734e8,
-      cashFlow: "Outflow",
-      creationDateTime: "2024-12-02T08:00:00",
-    },
-    {
-      id: 5,
-      msgId: "MSGIDDK00005",
-      creditorName: "QuantumTech Systems",
-      debtorName: "NovaMatrix Technologies",
-      creditorNetworkType: "ACH",
-      debtorNetworkType: "ACH",
-      clearingNetwork: "ACH",
-      tier: "Tier3",
-      status: "Processing",
-      amount: 4.192588734e7,
-      cashFlow: "Outflow",
-      creationDateTime: "2024-12-02T08:00:00",
-    },
-    {
-      id: 6,
-      msgId: "MSGIDDK00006",
-      creditorName: "QuantumTech Systems",
-      debtorName: "NovaMatrix Technologies",
-      creditorNetworkType: "ACH",
-      debtorNetworkType: "ACH",
-      clearingNetwork: "ACH",
-      tier: "Tier3",
-      status: "Processing",
-      amount: 4.192588734e7,
-      cashFlow: "Outflow",
-      creationDateTime: "2024-12-02T08:00:00",
-    },
-    {
-      id: 7,
-      msgId: "MSGIDDK00007",
-      creditorName: "QuantumTech Systems",
-      debtorName: "NovaMatrix Technologies",
-      creditorNetworkType: "ACH",
-      debtorNetworkType: "ACH",
-      clearingNetwork: "ACH",
-      tier: "Tier2",
-      status: "Processing",
-      amount: 2.192588734e7,
-      cashFlow: "Outflow",
-      creationDateTime: "2024-12-02T08:00:00",
-    },
-  ]);
+  const [data, setData] = useState<CashFlowRecord[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch cash flow data
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await fetchCashFlowData();
+      setData(response);
+    } catch (err) {
+      console.error("Failed to fetch cash flow data:", err);
+      setError("Failed to load cash flow data. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch data on component mount
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // Column selection and ordering
 
   const [selectedColumns, setSelectedColumns] = useState<string[]>(
     allColumns.map((col) => col.key as string)
@@ -507,6 +433,10 @@ const CashFlowTable: React.FC = () => {
         </Form>
       </Modal>
 
+      {error && (
+        <div className="text-red-500 mb-4">{error}</div>
+      )}
+      
       {/* Transactions Table */}
       <Table
         className="custom-ant-table"
@@ -514,6 +444,7 @@ const CashFlowTable: React.FC = () => {
         dataSource={filteredData}
         rowKey="id"
         pagination={false}
+        loading={loading}
       />
     </div>
   );

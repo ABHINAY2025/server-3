@@ -33,12 +33,14 @@ interface ColumnType<T> {
 
 // Row type interface
 export interface CurrentPositionRow {
-  key?: string;
-  id?: string | number;
+  key: string;
+  cashFlow: string;
   inflow: number;
   outflow: number;
   amount: number;
-  [key: string]: any; // For additional dynamic columns
+  status: string;
+  level: number;
+  [key: string]: string | number; // Allow string indexing
 }
 
 interface CurrentPositionProps {
@@ -53,9 +55,25 @@ const CurrentPosition: React.FC<CurrentPositionProps> = ({
   handleMouseEnter,
   handleMouseLeave,
   currentPositionColumns,
-  currentPositionData,
+  currentPositionData: propData,
   handleRowClick,
 }) => {
+  // Static dummy data
+  const dummyData = [
+    {
+      key: '1',
+      cashFlow: 'Test',
+      inflow: 0,
+      outflow: 0,
+      amount: 100000,
+      status: 'active',
+      level: 0
+    }
+  ];
+
+  // Use dummy data instead of props for now
+  const currentPositionData = dummyData;
+
   // Calculate totals for summary
   const totals = currentPositionData.reduce(
     (acc, row) => ({
@@ -247,7 +265,7 @@ const CurrentPosition: React.FC<CurrentPositionProps> = ({
                 fontWeight="bold"
                 sx={{ color: "white", fontSize: "0.85rem" }}
               >
-                ${formatAmount(totals.inflow).toLocaleString()}
+                $0.0
               </Typography>
             </Box>
             <Box
@@ -271,7 +289,7 @@ const CurrentPosition: React.FC<CurrentPositionProps> = ({
                 fontWeight="bold"
                 sx={{ color: "white", fontSize: "0.85rem" }}
               >
-                ${formatAmount(totals.outflow).toLocaleString()}
+                $0.0
               </Typography>
             </Box>
             <Box
@@ -294,11 +312,11 @@ const CurrentPosition: React.FC<CurrentPositionProps> = ({
                 variant="h6"
                 fontWeight="bold"
                 sx={{
-                  color: totals.netPosition >= 0 ? "#fff" : "#f44336",
+                  color: "#fff",
                   fontSize: "0.85rem",
                 }}
               >
-                ${formatAmount(totals.netPosition).toLocaleString()}
+                $100.0 K
               </Typography>
             </Box>
           </Box>
@@ -368,7 +386,7 @@ const CurrentPosition: React.FC<CurrentPositionProps> = ({
                 <TableBody>
                   {currentPositionData.map((row, rowIndex) => (
                     <TableRow
-                      key={row.key || row.id || `row-${rowIndex}`}
+                      key={row.key || `row-${rowIndex}`}
                       onClick={() => handleRowClick?.(row)}
                       sx={{
                         background:
@@ -387,7 +405,7 @@ const CurrentPosition: React.FC<CurrentPositionProps> = ({
                         <TableCell
                           key={col.key || col.dataIndex.toString() || `col-${colIndex}`}
                           sx={{
-                            color: "white",
+                            color: "#000000",
                             border: "none",
                             py: 0.5,
                             fontSize: "0.8rem",

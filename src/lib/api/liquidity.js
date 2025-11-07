@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Configure axios defaults and error handling
-const API_BASE = "http://10.30.0.21:8088/api";
+const API_BASE = "http://192.168.1.6:8089/api";
 
 // Add request interceptors for loading state and error handling
 axios.interceptors.request.use(
@@ -19,6 +19,51 @@ axios.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+//cash flow
+export const fetchCashFlowData = async () => {
+  try {
+    const response = await axios.get(`${API_BASE}/treasury/cashflows`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching cash flow data:", error);
+    throw error;
+  }
+};
+
+// sweeps
+export const fetchSweepsData = async () => {
+  try {
+    const response = await axios.get(`${API_BASE}/treasury/sweeps`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching sweeps data:", error);
+    throw error;
+  }
+};
+
+// pools
+export const fetchPoolsData = async () => {
+  try {
+    const response = await axios.get(`${API_BASE}/treasury/pools`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching pools data:", error);
+    throw error;
+  }
+};
+
+// reserves
+export const fetchReservesData = async () => {
+  try {
+    const response = await axios.get(`${API_BASE}/treasury/reserves`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching reserves data:", error);
+    throw error;
+  }
+};
+
 
 //overview
 export const overviewData = () => axios.get(`${API_BASE}/overview`);

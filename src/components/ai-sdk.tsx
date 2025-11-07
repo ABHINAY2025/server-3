@@ -34,10 +34,37 @@ export default function AiChat() {
       {/* Floating AI Button */}
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-6 bg-indigo-600 text-white w-14 h-14 rounded-full shadow-lg hover:bg-indigo-700 flex items-center justify-center text-2xl font-bold z-50 transition-all duration-200"
+        className="fixed bottom-6 right-6 w-14 h-14 rounded-full shadow-lg flex items-center justify-center text-2xl font-bold z-50 transition-all duration-200 transform group hover:-translate-y-1 hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300"
+        style={{ backgroundColor: '#acacc2' }}
         aria-label="Toggle AI Chat"
       >
-        AI
+        {/* Robot SVG icon (inline, accessible) */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 64 64"
+          className="w-8 h-8 transform transition-transform duration-200 group-hover:scale-110"
+          aria-hidden="true"
+          focusable="false"
+        >
+          {/* Outer head/body (white so it contrasts on indigo) */}
+          <g>
+            <rect x="6" y="6" width="52" height="34" rx="8" ry="8" fill="white" />
+            <ellipse cx="32" cy="44" rx="18" ry="10" fill="white" />
+
+            {/* Screen */}
+            <rect x="12" y="10" width="40" height="24" rx="6" fill="#051423" />
+
+            {/* Eyes and mouth (cyan highlights) */}
+            <circle cx="24" cy="22" r="3" fill="#52f0e6" />
+            <circle cx="40" cy="22" r="3" fill="#52f0e6" />
+            <path d="M26 28c1 1.5 3 1.5 4 0" stroke="#52f0e6" strokeWidth="2" strokeLinecap="round" fill="none" />
+
+            {/* Antenna */}
+            <rect x="28" y="2" width="8" height="6" rx="3" fill="white" />
+            <circle cx="32" cy="4" r="2" fill="#dcefff" />
+          </g>
+        </svg>
+        <span className="sr-only">Open AI chat</span>
       </button>
 
       {/* Chat Overlay Drawer */}
