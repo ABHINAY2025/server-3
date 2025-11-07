@@ -1,13 +1,13 @@
 .dashboard-container {
-  padding: 20px;
+  padding: 0;
   width: 100%;
   height: auto;
-  min-height: 95vh;
-  max-height: 100vh;
+  min-height: auto;
+  max-height: none;
   position: relative;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: visible;
 }
  
 .stats-row {
