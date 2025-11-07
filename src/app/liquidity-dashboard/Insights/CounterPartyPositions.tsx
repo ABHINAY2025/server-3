@@ -243,7 +243,13 @@ const CounterPartyPositions: React.FC<CounterPartyPositionsProps> = ({
       onMouseLeave={handleMouseLeave}
     >
 <CardContent
-        sx={{ p: 0, height: "100%", display: "flex", flexDirection: "column" }}
+        sx={{ 
+          p: 0, 
+          pb: 0,
+          height: "100%", 
+          display: "flex", 
+          flexDirection: "column" 
+        }}
       >
         {/* Enhanced Header */}
         <Box
@@ -381,19 +387,20 @@ const CounterPartyPositions: React.FC<CounterPartyPositionsProps> = ({
                 <Box
                   sx={{
                     flex: 1,
+                    maxHeight: "400px",
                     overflow: "auto",
                     "&::-webkit-scrollbar": {
-                      width: "6px",
+                      width: "8px",
                     },
                     "&::-webkit-scrollbar-track": {
-                      backgroundColor: "rgba(255, 255, 255, 0.05)",
-                      borderRadius: "3px",
+                      backgroundColor: "#f5f5f5",
+                      borderRadius: "4px",
                     },
                     "&::-webkit-scrollbar-thumb": {
-                      backgroundColor: "rgba(255, 255, 255, 0.2)",
-                      borderRadius: "3px",
+                      backgroundColor: "#bdbdbd",
+                      borderRadius: "4px",
                       "&:hover": {
-                        backgroundColor: "rgba(255, 255, 255, 0.3)",
+                        backgroundColor: "#9e9e9e",
                       },
                     },
                   }}
@@ -687,11 +694,11 @@ const CounterPartyPositions: React.FC<CounterPartyPositionsProps> = ({
                     onRowsPerPageChange={handleChangeRowsPerPage}
                     rowsPerPageOptions={[5, 10, 15, 20]}
                     sx={{
-                      color: "white",
-                      borderTop: "1px solid rgba(255, 255, 255, 0.1)",
-                      background: "rgba(255,255,255,0.02)",
+                      color: "black",
+                      borderTop: "1px solid rgba(0, 0, 0, 0.1)",
+                      background: "#ffffff",
                       "& .MuiTablePagination-toolbar": {
-                        color: "white",
+                        color: "black",
                         minHeight: "40px",
                         padding: "0 16px",
                         justifyContent: "space-between",
@@ -704,60 +711,60 @@ const CounterPartyPositions: React.FC<CounterPartyPositionsProps> = ({
                         display: "none",
                       },
                       "& .MuiTablePagination-selectLabel": {
-                        color: "rgba(255, 255, 255, 0.8)",
+                        color: "rgba(0, 0, 0, 0.87)",
                         fontSize: "0.75rem",
                         fontWeight: "400",
                         whiteSpace: "nowrap",
                         marginRight: "8px",
                       },
                       "& .MuiTablePagination-displayedRows": {
-                        color: "rgba(255, 255, 255, 0.8)",
+                        color: "rgba(0, 0, 0, 0.87)",
                         fontSize: "0.75rem",
                         fontWeight: "400",
                         whiteSpace: "nowrap",
                         marginLeft: "auto",
                       },
                       "& .MuiTablePagination-select": {
-                        color: "white",
-                        backgroundColor: "rgba(255, 255, 255, 0.1)",
+                        color: "black",
+                        backgroundColor: "#f5f5f5",
                         borderRadius: "3px",
                         padding: "2px 6px",
                         marginRight: "8px",
                         minWidth: "50px",
                         fontSize: "0.75rem",
-                        border: "1px solid rgba(255, 255, 255, 0.15)",
+                       
                         "&:hover": {
-                          backgroundColor: "rgba(255, 255, 255, 0.15)",
+                          backgroundColor: "#eeeeee",
                         },
                       },
                       "& .MuiTablePagination-actions": {
-                        color: "white",
+                        color: "black",
                         marginLeft: "12px",
                         "& .MuiIconButton-root": {
-                          color: "white",
-                          backgroundColor: "rgba(255, 255, 255, 0.08)",
+                          color: "black",
+                          backgroundColor: "#f5f5f5",
                           margin: "0 1px",
                           padding: "4px",
                           width: "28px",
                           height: "28px",
                           "&:hover": {
-                            backgroundColor: "rgba(255, 255, 255, 0.15)",
+                            backgroundColor: "#eeeeee",
                           },
                           "&.Mui-disabled": {
-                            color: "rgba(255, 255, 255, 0.3)",
-                            backgroundColor: "rgba(255, 255, 255, 0.03)",
+                            color: "rgba(0, 0, 0, 0.3)",
+                            backgroundColor: "rgba(0, 0, 0, 0.03)",
                           },
                         },
                       },
                       "& .MuiSvgIcon-root": {
-                        color: "white",
+                        color: "black",
                         fontSize: "16px",
                       },
                       "& .MuiSelect-select": {
-                        color: "white",
+                        color: "black",
                       },
                       "& .MuiInputBase-root": {
-                        color: "white",
+                        color: "black",
                       },
                     }}
                   />
