@@ -432,6 +432,8 @@ const handleAddRoot = async (operatorName: string) => {
         maxHeight: "calc(100vh - 136px)",
         width: "100%",
         paddingTop: "10px",
+        paddingLeft: "10px",
+        paddingRight: "10px",
         display: "flex",
         flexDirection: "column",
         position: "relative",
