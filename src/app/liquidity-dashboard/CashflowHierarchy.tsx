@@ -250,8 +250,17 @@ const CashFlowHierarchy: React.FC<CashFlowHierarchyProps> = ({
 
   return (
     <Card elevation={3} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <CardContent>
-        <Box display="flex" alignItems="center" justifyContent="space-between" p={1} >
+      <CardContent sx={{ p: 0 }}>
+        <Box 
+          display="flex" 
+          alignItems="center" 
+          justifyContent="space-between" 
+          p={1}
+          sx={{
+            background: 'linear-gradient(135deg, rgba(167, 235, 186, 0.95) 0%, rgba(201, 233, 141, 0.95) 100%)',
+            borderRadius: '8px 8px 0 0'
+          }}
+        >
           <Box display="flex" alignItems="center" gap={1}>
             <Security sx={{ fontSize: "1rem" }} />
             <Typography variant="h6">Liquidity Controls</Typography>

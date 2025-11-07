@@ -105,7 +105,7 @@ const CurrentPosition: React.FC<CurrentPositionProps> = ({
           sx={{
             py: 1,
             px: 1.5,
-            background: "linear-gradient(90deg, #4caf50 0%, #66bb6a 100%)",
+            background: "linear-gradient(135deg, rgba(162, 172, 232, 0.95) 0%, rgba(149, 155, 188, 0.95) 100%)",
             position: "relative",
             overflow: "hidden",
             flexShrink: 0,
@@ -179,7 +179,7 @@ const CurrentPosition: React.FC<CurrentPositionProps> = ({
                   label="Real-time"
                   size="small"
                   sx={{
-                    background: "rgba(76, 255, 76, 0.3)",
+                    background: "#b3b9dd",
                     color: "white",
                     fontWeight: "bold",
                     backdropFilter: "blur(10px)",
