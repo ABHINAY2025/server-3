@@ -7,7 +7,7 @@ import {
   updateNode,
   deleteNode,
   fetchCounterpartyDataOptimized,
-  counterpartyData ,
+  counterpartyData,
   preloadDashboardData,
   startBackgroundRefresh,
   apiCache,
@@ -156,7 +156,7 @@ const Orchestration: React.FC = () => {
   const [isAddRootModalOpen, setIsAddRootModalOpen] = useState<boolean>(false);
   const [newRootName, setNewRootName] = useState<string>("");
   const [counterpartyTableData, setCounterpartyTableData] = useState<CounterpartyData>({});
- 
+
   const [companies, setCompanies] = useState<string[]>([]);
   const [selectedCompany, setSelectedCompany] = useState<string>("");
   const [rawData, setRawData] = useState<Node[]>([]);
@@ -180,7 +180,7 @@ const Orchestration: React.FC = () => {
   const counterpartyOperation = useAsyncOperation();
 
   const [isAddChildModalOpen, setIsAddChildModalOpen] = useState<boolean>(false);
- const [selectedParentNode, setSelectedParentNode] = useState<Node | null>(null);
+  const [selectedParentNode, setSelectedParentNode] = useState<Node | null>(null);
 
 
   // ---------------------------
@@ -223,17 +223,17 @@ const Orchestration: React.FC = () => {
   };
 
   const loadCounterpartyData = async () => {
-  try {
-    const response = await counterpartyData();
-    console.log("✅ Counterparty positions loaded:", response.data);
-    setCounterpartyTableData(response.data || []);
-  } catch (error) {
-    console.error("❌ Error loading counterparty positions:", error);
-    setCounterpartyTableData([]);
-  }
-};
+    try {
+      const response = await counterpartyData();
+      console.log("✅ Counterparty positions loaded:", response.data);
+      setCounterpartyTableData(response.data || []);
+    } catch (error) {
+      console.error("❌ Error loading counterparty positions:", error);
+      setCounterpartyTableData([]);
+    }
+  };
 
-// const [counterpartyTableData, setCounterpartyTableData] = useState<CounterpartyData[]>([]);
+  // const [counterpartyTableData, setCounterpartyTableData] = useState<CounterpartyData[]>([]);
 
   useEffect(() => {
     preloadDashboardData({ activeTab: "orchestration" });
@@ -282,19 +282,19 @@ const Orchestration: React.FC = () => {
   // ---------------------------
   // Normalize rawData recursively to ensure 'key' exists
   // ---------------------------
- const normalizedRawData = uniqueRawData.map((node, idx) => {
-  const generateKey = () => node.key || node.nodeKey || `node-${idx}-${Date.now()}`;
-  
-  const normalize = (n: any, i: number): Node => ({
-    key: n.key || n.nodeKey || `node-${i}-${Date.now()}`,
-    name: n.name,
-    title: n.title || n.name,
-    amount: n.amount || 0,
-    children: n.children ? n.children.map((c: any, ci: number) => normalize(c, ci)) : undefined,
-  });
+  const normalizedRawData = uniqueRawData.map((node, idx) => {
+    const generateKey = () => node.key || node.nodeKey || `node-${idx}-${Date.now()}`;
 
-  return normalize(node, idx);
-});
+    const normalize = (n: any, i: number): Node => ({
+      key: n.key || n.nodeKey || `node-${i}-${Date.now()}`,
+      name: n.name,
+      title: n.title || n.name,
+      amount: n.amount || 0,
+      children: n.children ? n.children.map((c: any, ci: number) => normalize(c, ci)) : undefined,
+    });
+
+    return normalize(node, idx);
+  });
 
   // ---------------------------
   // Convert Node[] to FundRow[] for FundsAllocation
@@ -323,49 +323,49 @@ const Orchestration: React.FC = () => {
   // ---------------------------
   // Add Root Node
   // ---------------------------
-const handleAddRoot = async (operatorName: string) => {
-  if (!operatorName.trim() || isLoading("nodeCreation")) return;
+  const handleAddRoot = async (operatorName: string) => {
+    if (!operatorName.trim() || isLoading("nodeCreation")) return;
 
-  setLoading("nodeCreation", true);
+    setLoading("nodeCreation", true);
 
-  try {
-    const timestamp = Date.now();
-    const cleanNodeKey = `${operatorName.toLowerCase().replace(/\s+/g, "-")}-${timestamp}`;
+    try {
+      const timestamp = Date.now();
+      const cleanNodeKey = `${operatorName.toLowerCase().replace(/\s+/g, "-")}-${timestamp}`;
 
-    // Update locally for instant UI feedback
-    const newNode: Node = {
-      key: cleanNodeKey,
-      name: operatorName,
-      title: operatorName,
-      amount: 0,
-      children: [],
-    };
-    setRawData(prev => [...prev, newNode]);
+      // Update locally for instant UI feedback
+      const newNode: Node = {
+        key: cleanNodeKey,
+        name: operatorName,
+        title: operatorName,
+        amount: 0,
+        children: [],
+      };
+      setRawData(prev => [...prev, newNode]);
 
-    const createResponse = await createNode({
-      nodeKey: cleanNodeKey,
-      name: operatorName,
-      amount: 0,
-      parentKey: null,
-      type: "payment_operator",
-    });
+      const createResponse = await createNode({
+        nodeKey: cleanNodeKey,
+        name: operatorName,
+        amount: 0,
+        parentKey: null,
+        type: "payment_operator",
+      });
 
-    if (createResponse?.status !== 200 && createResponse?.status !== 201) {
-      throw new Error("Node creation failed on server");
+      if (createResponse?.status !== 200 && createResponse?.status !== 201) {
+        throw new Error("Node creation failed on server");
+      }
+
+      setIsAddRootModalOpen(false);
+      setNewRootName("");
+      apiCache.clear();
+      await loadData();
+
+    } catch (err: any) {
+      console.error("Error adding payment operator:", err);
+      alert("Failed to add payment operator: " + (err.message || "Unknown error"));
+    } finally {
+      setLoading("nodeCreation", false);
     }
-
-    setIsAddRootModalOpen(false);
-    setNewRootName("");
-    apiCache.clear();
-    await loadData();
-
-  } catch (err: any) {
-    console.error("Error adding payment operator:", err);
-    alert("Failed to add payment operator: " + (err.message || "Unknown error"));
-  } finally {
-    setLoading("nodeCreation", false);
-  }
-};
+  };
 
 
   // ---------------------------
@@ -432,6 +432,8 @@ const handleAddRoot = async (operatorName: string) => {
         maxHeight: "calc(100vh - 136px)",
         width: "100%",
         paddingTop: "10px",
+        paddingLeft: "10px",
+        paddingRight: "10px",
         display: "flex",
         flexDirection: "column",
         position: "relative",
@@ -469,12 +471,12 @@ const handleAddRoot = async (operatorName: string) => {
             setSelectedCompany={setSelectedCompany}
             isSwitchChecked={isSwitchChecked}
             setIsSwitchChecked={setIsSwitchChecked}
-            handleMouseEnter={() => {}}
-            handleMouseLeave={() => {}}
+            handleMouseEnter={() => { }}
+            handleMouseLeave={() => { }}
           />
         </Box>
       </Box>
-      
+
 
       {/* Bottom Row */}
       <Box
@@ -490,24 +492,24 @@ const handleAddRoot = async (operatorName: string) => {
         }}
       >
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", minHeight: 0 }}>
-      <CashFlowHierarchy
-  rawData={normalizedRawData}
-  type="control"
-  controlStatuses={controlStatuses}
-  onSwitchChange={() => {}}
-  onTitleClick={() => {}}
-  handleMouseEnter={()=>{}}
-  handleMouseLeave={()=>{}}
-/>
+          <CashFlowHierarchy
+            rawData={normalizedRawData}
+            type="control"
+            controlStatuses={controlStatuses}
+            onSwitchChange={() => { }}
+            onTitleClick={() => { }}
+            handleMouseEnter={() => { }}
+            handleMouseLeave={() => { }}
+          />
 
         </Box>
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", minHeight: 0 }}>
           <CurrentPosition
-            handleMouseEnter={() => {}}
-            handleMouseLeave={() => {}}
+            handleMouseEnter={() => { }}
+            handleMouseLeave={() => { }}
             currentPositionColumns={currentPositionColumns}
             currentPositionData={normalizedCurrentPositionData}
-            handleRowClick={() => {}}
+            handleRowClick={() => { }}
           />
         </Box>
       </Box>
@@ -518,17 +520,17 @@ const handleAddRoot = async (operatorName: string) => {
         handleAllocateModalClose={handleAllocateModalClose}
         editableRawData={editableRawData}
         handleAddNode={handleAddNode}
-        handleRemoveNode={() => {}}
-        handleAmountChange={() => {}}
+        handleRemoveNode={() => { }}
+        handleAmountChange={() => { }}
         allocateExpandedKeys={allocateExpandedKeys}
         handleAllocateExpand={(key: string) => {
-          setAllocateExpandedKeys(prev => 
-            prev.includes(key) 
-              ? prev.filter(k => k !== key) 
+          setAllocateExpandedKeys(prev =>
+            prev.includes(key)
+              ? prev.filter(k => k !== key)
               : [...prev, key]
           );
         }}
-        handleSaveAllocation={() => {}}
+        handleSaveAllocation={() => { }}
         handleOpenAddRootModal={() => setIsAddRootModalOpen(true)}
         isAddRootModalOpen={isAddRootModalOpen}
         handleCloseAddRootModal={() => setIsAddRootModalOpen(false)}
@@ -541,13 +543,13 @@ const handleAddRoot = async (operatorName: string) => {
       />
 
       {/* Add Child Node Modal */}
- <AddChildNodeModal
-  open={isAddChildModalOpen}
-  onClose={() => setIsAddChildModalOpen(false)}
-  onAdd={handleAddChildNode}
-  parentNode={selectedParentNode ?? undefined} // null → undefined
-  loading={isLoading("nodeCreation")}
-/>
+      <AddChildNodeModal
+        open={isAddChildModalOpen}
+        onClose={() => setIsAddChildModalOpen(false)}
+        onAdd={handleAddChildNode}
+        parentNode={selectedParentNode ?? undefined} // null → undefined
+        loading={isLoading("nodeCreation")}
+      />
 
     </Box>
   );
