@@ -263,7 +263,9 @@ const CashFlowHierarchy: React.FC<CashFlowHierarchyProps> = ({
         >
           <Box display="flex" alignItems="center" gap={1}>
             <Security sx={{ fontSize: "1rem" }} />
-            <Typography variant="h6">Liquidity Controls</Typography>
+            <Typography variant="subtitle1" sx={{ color: "#0f172a", fontWeight: "700", fontSize: "0.9rem" }}>
+              Liquidity Controls
+            </Typography>
           </Box>
           <Chip
             label={`${normalizedRawData?.length || 0} Operator${normalizedRawData?.length !== 1 ? "s" : ""}`}
