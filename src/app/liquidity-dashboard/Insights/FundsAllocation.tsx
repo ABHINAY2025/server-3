@@ -313,7 +313,7 @@ const FundsAllocation: React.FC<FundsAllocationProps> = ({
                             py: 1,
                             fontSize: "0.8rem",
                             fontWeight:
-                              col.dataIndex === "amount" ? "bold" : "normal",
+                              col.dataIndex === "amount" ? "500" : "normal",
                           }}
                         >
                           {col.render

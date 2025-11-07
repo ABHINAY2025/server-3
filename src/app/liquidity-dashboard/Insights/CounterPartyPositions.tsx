@@ -530,7 +530,7 @@ const CounterPartyPositions: React.FC<CounterPartyPositionsProps> = ({
                                 border: "none",
                                 py: 0.5,
                                 fontSize: "0.8rem",
-                                fontWeight: "bold",
+                                fontWeight: "500",
                               }}
                             >
                               <Box
@@ -555,7 +555,7 @@ const CounterPartyPositions: React.FC<CounterPartyPositionsProps> = ({
                                 border: "none",
                                 py: 0.5,
                                 fontSize: "0.8rem",
-                                fontWeight: "bold",
+                                fontWeight: "500",
                               }}
                             >
                               <Box
