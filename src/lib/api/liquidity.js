@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Configure axios defaults and error handling
-const API_BASE = "http://10.30.0.21:8088/api";
+const API_BASE = "http://10.30.0.104:8089/api";
 
 // Add request interceptors for loading state and error handling
 axios.interceptors.request.use(
