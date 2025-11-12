@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const JAVA_URL = "https://server-1-xk8a.onrender.com/api";
+const JAVA_URL = "http://10.30.0.104:5000/api";
 
 export const getISOStandardDataFields = async () => {
   const response = await axios.get(`${JAVA_URL}/isoStandardFields`);
