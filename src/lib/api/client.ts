@@ -1,4 +1,4 @@
-const DEFAULT_API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://server-1-xk8a.onrender.com/api"
+const DEFAULT_API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://10.30.0.104:5000/api"
 
 const API_BASE_URL = DEFAULT_API_BASE_URL
   // process.env.NEXT_PUBLIC_QDL_API_BASE_URL ?? DEFAULT_API_BASE_URL
